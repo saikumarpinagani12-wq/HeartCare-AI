@@ -1,11 +1,8 @@
 
 Flask
 gunicorn
-torch
-torchvision
 numpy
 pandas
+PyWavelets
 matplotlib
 Pillow
-PyWavelets
-scikit-learn
