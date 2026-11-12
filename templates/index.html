@@ -1,0 +1,268 @@
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+
+    <title>HeartCare AI | ECG Analysis</title>
+
+    <link rel="stylesheet"
+    href="{{ url_for('static', filename='css/style.css') }}">
+    
+    <script src="{{ url_for('static', filename='js/script.js') }}"
+    defer></script>
+</head>
+
+<body>
+
+    <!-- NAVIGATION -->
+    <header class="navbar">
+        <div class="logo">
+            <span>♥</span> HeartCare AI
+        </div>
+
+        <nav>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#technology">Technology</a>
+            <a href="#analysis">ECG Analysis</a>
+        </nav>
+
+        <a href="#analysis" class="nav-button">
+            Get Started
+        </a>
+    </header>
+
+
+    <!-- HERO SECTION -->
+    <section class="hero" id="home">
+
+        <div class="hero-content">
+
+            <div class="tag">
+                ● AI POWERED HEART MONITORING
+            </div>
+
+            <h1>
+                Smarter Heart
+                <span>Health Detection</span>
+            </h1>
+
+            <p>
+                Experience intelligent ECG analysis using
+                Deep Learning and Scalogram Image Processing
+                to support heart health research.
+            </p>
+
+            <div class="hero-buttons">
+                <a href="#analysis" class="primary-btn">
+                    Analyze ECG →
+                </a>
+
+                <a href="#about" class="secondary-btn">
+                    Learn More
+                </a>
+            </div>
+
+            <div class="hero-stats">
+                <div>
+                    <h3>ECG</h3>
+                    <p>Signal Analysis</p>
+                </div>
+
+                <div>
+                    <h3>CWT</h3>
+                    <p>Scalogram</p>
+                </div>
+
+                <div>
+                    <h3>AI</h3>
+                    <p>Deep Learning</p>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="hero-visual">
+
+            <div class="heart-circle">
+                <div class="heart-icon">♥</div>
+                <div class="pulse-line"></div>
+                <p>HEARTCARE INTELLIGENCE</p>
+            </div>
+
+            <div class="floating-card">
+                <span>♥</span>
+                <div>
+                    <strong>ECG Analysis</strong>
+                    <small>Intelligent Processing</small>
+                </div>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ABOUT SECTION -->
+    <section class="about" id="about">
+
+        <div class="section-heading">
+            <span>ABOUT OUR PROJECT</span>
+            <h2>Intelligence Meets Healthcare</h2>
+
+            <p>
+                HeartCare AI is an academic research platform
+                that uses ECG signal processing, Continuous
+                Wavelet Transform and ResNet-18 deep learning
+                for ECG classification.
+            </p>
+        </div>
+
+        <div class="feature-grid">
+
+            <div class="feature-card">
+                <div class="feature-icon">♥</div>
+                <h3>ECG Processing</h3>
+                <p>Analyze ECG signals for further processing.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">〰</div>
+                <h3>Scalogram Generation</h3>
+                <p>Convert ECG signals into visual scalogram images.</p>
+            </div>
+
+            <div class="feature-card">
+                <div class="feature-icon">✦</div>
+                <h3>Deep Learning</h3>
+                <p>Use ResNet-18 for automated ECG classification.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- TECHNOLOGY SECTION -->
+    <section class="technology" id="technology">
+
+        <div class="section-heading">
+            <span>OUR TECHNOLOGY</span>
+            <h2>How HeartCare AI Works</h2>
+        </div>
+
+        <div class="process-grid">
+
+            <div class="process-card">
+                <span>01</span>
+                <h3>ECG Signal</h3>
+                <p>Upload an ECG signal dataset.</p>
+            </div>
+
+            <div class="process-card">
+                <span>02</span>
+                <h3>Preprocessing</h3>
+                <p>Prepare the signal for analysis.</p>
+            </div>
+
+            <div class="process-card">
+                <span>03</span>
+                <h3>CWT Scalogram</h3>
+                <p>Generate time-frequency images.</p>
+            </div>
+
+            <div class="process-card">
+                <span>04</span>
+                <h3>ResNet-18</h3>
+                <p>Perform deep learning classification.</p>
+            </div>
+
+        </div>
+
+    </section>
+
+
+    <!-- ECG UPLOAD SECTION -->
+    <section class="analysis" id="analysis">
+
+        <div class="section-heading">
+            <span>AI ECG ANALYSIS</span>
+            <h2>Upload Your ECG Signal</h2>
+
+            <p>
+                Upload an ECG signal file for experimental
+                analysis using our deep learning pipeline.
+            </p>
+        </div>
+
+        <div class="upload-box">
+
+            <div class="upload-icon">↑</div>
+
+            <h3>Select ECG File</h3>
+
+            <p>
+                Supported formats: CSV and TXT
+            </p>
+
+            <form action="/predict" method="POST"
+                  enctype="multipart/form-data">
+
+                <label for="ecgFile" class="upload-label">
+                    Choose ECG File
+                </label>
+
+                <input
+                    type="file"
+                    id="ecgFile"
+                    name="ecg_file"
+                    accept=".csv,.txt"
+                    required
+                >
+
+                <p id="fileName">
+                    No file selected
+                </p>
+
+                <button type="submit" class="primary-btn">
+                    Analyze ECG →
+                </button>
+
+            </form>
+
+            <p class="upload-note">
+                Please upload a compatible ECG signal file.
+            </p>
+
+        </div>
+
+    </section>
+
+
+    <!-- FOOTER -->
+    <footer>
+
+        <div class="footer-logo">
+            ♥ HeartCare AI
+        </div>
+
+        <p>
+            Intelligent ECG Analysis Using Deep Learning
+        </p>
+
+        <p class="disclaimer">
+            Academic research prototype. Not intended
+            for medical diagnosis or treatment decisions.
+        </p>
+
+        <p class="copyright">
+            © 2026 HeartCare AI. All Rights Reserved.
+        </p>
+
+    </footer>
+
+</body>
+</html>

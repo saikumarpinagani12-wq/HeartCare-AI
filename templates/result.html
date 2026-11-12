@@ -1,0 +1,191 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>HeartCare AI | ECG Results</title>
+
+    <style>
+        body {
+            margin: 0;
+            padding: 30px;
+            font-family: Arial, sans-serif;
+            background: #f4f7fb;
+            color: #17233c;
+        }
+
+        .container {
+            max-width: 1100px;
+            margin: auto;
+        }
+
+        .card {
+            background: white;
+            padding: 25px;
+            margin: 20px 0;
+            border-radius: 14px;
+            box-shadow: 0 4px 18px rgba(0,0,0,0.06);
+        }
+
+        h1, h2 {
+            color: #172c50;
+        }
+
+        .prediction {
+            font-size: 28px;
+            font-weight: bold;
+        }
+
+        .normal {
+            color: #16834a;
+        }
+
+        .abnormal {
+            color: #d43b4b;
+        }
+
+        .graphs {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 20px;
+        }
+
+        .graphs img, .scalogram {
+            width: 100%;
+            border-radius: 10px;
+        }
+
+        pre {
+            background: #f1f4f8;
+            padding: 18px;
+            border-radius: 10px;
+            overflow-x: auto;
+            white-space: pre-wrap;
+        }
+
+        .button {
+            display: inline-block;
+            padding: 12px 22px;
+            background: #172c50;
+            color: white;
+            text-decoration: none;
+            border-radius: 8px;
+        }
+
+        .note {
+            color: #735b1c;
+            background: #fff8e6;
+            padding: 15px;
+            border-radius: 8px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+
+<body>
+
+<div class="container">
+
+    <h1>HeartCare AI – ECG Analysis Results</h1>
+
+    <div class="card">
+        <h2>Prediction Result</h2>
+
+        <p><strong>Uploaded file:</strong> {{ filename }}</p>
+
+        <p class="prediction
+        {% if predicted_class|lower == 'normal' %}
+            normal
+        {% else %}
+            abnormal
+        {% endif %}">
+            {{ predicted_class }}
+        </p>
+
+        <p><strong>Model confidence:</strong> {{ confidence }}%</p>
+
+        <p><strong>Sampling rate:</strong> {{ sampling_rate }} Hz</p>
+
+        <p><strong>Number of samples:</strong> {{ samples }}</p>
+
+        <p><strong>Signal duration:</strong> {{ duration }} seconds</p>
+
+        <p class="note">
+            This is an experimental academic AI result, not a medical
+            diagnosis. Model confidence is not the probability that a
+            person has heart disease.
+        </p>
+    </div>
+
+
+    <div class="card">
+        <h2>Generated CWT Scalogram</h2>
+
+        <img class="scalogram" src="{{ scalogram }}" alt="ECG Scalogram">
+    </div>
+
+
+    <div class="card">
+        <h2>Model Training Performance</h2>
+
+        {% if results %}
+            <p><strong>Independent test accuracy:</strong>
+                {{ results.get('test_accuracy', 'Not available') }}%
+            </p>
+
+            <p><strong>Validation accuracy:</strong>
+                {{ results.get('validation_accuracy', 'Not available') }}%
+            </p>
+
+            <p><strong>Test loss:</strong>
+                {{ results.get('test_loss', 'Not available') }}
+            </p>
+
+            <p><strong>Best epoch:</strong>
+                {{ results.get('best_epoch', 'Not available') }}
+            </p>
+        {% else %}
+            <p>Training metrics file was not found.</p>
+        {% endif %}
+
+        <div class="graphs">
+
+            <div>
+                <h3>Accuracy Graph</h3>
+                <img src="{{ url_for('training_assets', filename='accuracy_graph.png') }}"
+                     alt="Accuracy graph">
+            </div>
+
+            <div>
+                <h3>Loss Graph</h3>
+                <img src="{{ url_for('training_assets', filename='loss_graph.png') }}"
+                     alt="Loss graph">
+            </div>
+
+            <div>
+                <h3>Confusion Matrix</h3>
+                <img src="{{ url_for('training_assets', filename='confusion_matrix.png') }}"
+                     alt="Confusion matrix">
+            </div>
+
+        </div>
+    </div>
+
+
+    <div class="card">
+        <h2>Classification Report</h2>
+
+        {% if report %}
+            <pre>{{ report }}</pre>
+        {% else %}
+            <p>Classification report not found.</p>
+        {% endif %}
+    </div>
+
+    <a href="/" class="button">Analyze Another ECG</a>
+
+</div>
+
+</body>
+</html>

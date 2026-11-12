@@ -1,0 +1,546 @@
+
+/* ==============================
+   HEARTCARE AI - PREMIUM DESIGN
+================================ */
+
+@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap');
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: 'Inter', sans-serif;
+    background: #f7f9fc;
+    color: #14243b;
+    overflow-x: hidden;
+}
+
+/* NAVBAR */
+
+.navbar {
+    height: 85px;
+    padding: 0 8%;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    background: #101d32;
+    position: sticky;
+    top: 0;
+    z-index: 100;
+}
+
+.logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: white;
+}
+
+.logo span {
+    color: #ff617c;
+    font-size: 30px;
+}
+
+nav {
+    display: flex;
+    gap: 32px;
+}
+
+nav a {
+    color: #d4deeb;
+    text-decoration: none;
+    font-size: 14px;
+    transition: 0.3s;
+}
+
+nav a:hover {
+    color: #ff7185;
+}
+
+.nav-button {
+    background: #ef536d;
+    color: white;
+    padding: 13px 23px;
+    border-radius: 8px;
+    text-decoration: none;
+    font-size: 14px;
+    font-weight: 700;
+}
+
+/* HERO SECTION */
+
+.hero {
+    min-height: 650px;
+    padding: 100px 10%;
+    background: linear-gradient(125deg, #101d32, #203e60);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 50px;
+    color: white;
+}
+
+.hero-content {
+    max-width: 620px;
+}
+
+.tag {
+    color: #ff8396;
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 25px;
+}
+
+.hero h1 {
+    font-size: clamp(42px, 5vw, 65px);
+    font-weight: 800;
+    line-height: 1.15;
+    margin-bottom: 25px;
+}
+
+.hero h1 span {
+    display: block;
+    color: #ff7185;
+}
+
+.hero-content > p {
+    color: #c7d3e2;
+    font-size: 16px;
+    line-height: 1.9;
+    margin-bottom: 30px;
+}
+
+.hero-buttons {
+    display: flex;
+    gap: 15px;
+    flex-wrap: wrap;
+}
+
+.primary-btn {
+    display: inline-block;
+    background: #ed536d;
+    color: white;
+    padding: 16px 27px;
+    border: none;
+    border-radius: 9px;
+    font-size: 14px;
+    font-weight: 700;
+    text-decoration: none;
+    cursor: pointer;
+    transition: 0.3s;
+}
+
+.primary-btn:hover {
+    background: #d93c59;
+    transform: translateY(-3px);
+}
+
+.secondary-btn {
+    padding: 15px 25px;
+    border: 1px solid #71839a;
+    color: white;
+    border-radius: 9px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.secondary-btn:hover {
+    background: #ffffff15;
+}
+
+.hero-stats {
+    display: flex;
+    gap: 55px;
+    margin-top: 55px;
+}
+
+.hero-stats h3 {
+    font-size: 25px;
+    color: #ff8194;
+}
+
+.hero-stats p {
+    color: #c7d3e2;
+    font-size: 12px;
+    margin-top: 8px;
+}
+
+/* HEART VISUAL */
+
+.hero-visual {
+    position: relative;
+    width: 350px;
+    height: 350px;
+    flex-shrink: 0;
+}
+
+.heart-circle {
+    width: 300px;
+    height: 300px;
+    border-radius: 50%;
+    background: #ffffff0b;
+    border: 1px solid #ffffff35;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    box-shadow: 0 0 60px #ff536b20;
+}
+
+.heart-icon {
+    font-size: 120px;
+    color: #ff617c;
+    animation: heartbeat 1.5s infinite;
+}
+
+.heart-circle p {
+    font-size: 10px;
+    letter-spacing: 3px;
+    color: #ff9aaa;
+    margin-top: 10px;
+}
+
+.pulse-line {
+    width: 180px;
+    height: 2px;
+    background: #ff617c;
+    box-shadow: 0 0 12px #ff617c;
+}
+
+@keyframes heartbeat {
+    0%, 100% { transform: scale(1); }
+    15% { transform: scale(1.15); }
+    30% { transform: scale(1); }
+    45% { transform: scale(1.1); }
+}
+
+.floating-card {
+    position: absolute;
+    bottom: 0;
+    right: -10px;
+    background: white;
+    color: #14243b;
+    padding: 18px;
+    border-radius: 13px;
+    display: flex;
+    align-items: center;
+    gap: 13px;
+    box-shadow: 0 15px 40px #0003;
+}
+
+.floating-card span {
+    color: #ef536d;
+    font-size: 30px;
+}
+
+.floating-card strong,
+.floating-card small {
+    display: block;
+}
+
+.floating-card strong {
+    font-size: 13px;
+}
+
+.floating-card small {
+    color: #718096;
+    margin-top: 5px;
+    font-size: 11px;
+}
+
+/* SECTION HEADINGS */
+
+.section-heading {
+    text-align: center;
+    max-width: 750px;
+    margin: 0 auto 55px;
+}
+
+.section-heading > span {
+    color: #ed536d;
+    font-weight: 800;
+    font-size: 12px;
+    letter-spacing: 2px;
+}
+
+.section-heading h2 {
+    font-size: 35px;
+    margin: 17px 0;
+}
+
+.section-heading p {
+    color: #718096;
+    line-height: 1.9;
+    font-size: 14px;
+}
+
+/* ABOUT SECTION */
+
+.about {
+    padding: 100px 9%;
+}
+
+.feature-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 25px;
+}
+
+.feature-card {
+    background: white;
+    padding: 35px;
+    border-radius: 15px;
+    box-shadow: 0 8px 30px #14243b0a;
+    border: 1px solid #e9edf4;
+    transition: 0.3s;
+}
+
+.feature-card:hover {
+    transform: translateY(-8px);
+    box-shadow: 0 15px 35px #14243b12;
+}
+
+.feature-icon {
+    width: 55px;
+    height: 55px;
+    background: #fff0f3;
+    color: #ed536d;
+    border-radius: 12px;
+    display: grid;
+    place-items: center;
+    font-size: 27px;
+    margin-bottom: 22px;
+}
+
+.feature-card h3 {
+    font-size: 18px;
+    margin-bottom: 12px;
+}
+
+.feature-card p {
+    color: #718096;
+    line-height: 1.8;
+    font-size: 13px;
+}
+
+/* TECHNOLOGY */
+
+.technology {
+    background: #edf2f8;
+    padding: 100px 9%;
+}
+
+.process-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 20px;
+}
+
+.process-card {
+    background: white;
+    padding: 30px 23px;
+    border-radius: 13px;
+    border-bottom: 4px solid #ed536d;
+}
+
+.process-card span {
+    color: #ed536d;
+    font-size: 25px;
+    font-weight: 800;
+}
+
+.process-card h3 {
+    margin: 20px 0 12px;
+    font-size: 17px;
+}
+
+.process-card p {
+    color: #718096;
+    font-size: 13px;
+    line-height: 1.8;
+}
+
+/* ECG ANALYSIS */
+
+.analysis {
+    padding: 100px 9%;
+}
+
+.upload-box {
+    max-width: 650px;
+    margin: auto;
+    background: white;
+    border: 2px dashed #d6deea;
+    padding: 55px 35px;
+    border-radius: 18px;
+    text-align: center;
+    box-shadow: 0 10px 35px #14243b0a;
+}
+
+.upload-icon {
+    width: 70px;
+    height: 70px;
+    background: #fff0f3;
+    color: #ed536d;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+    margin: auto auto 20px;
+    font-size: 35px;
+}
+
+.upload-box h3 {
+    font-size: 22px;
+    margin-bottom: 10px;
+}
+
+.upload-box > p {
+    color: #718096;
+    font-size: 13px;
+    margin-bottom: 25px;
+}
+
+.upload-label {
+    display: inline-block;
+    background: #203e60;
+    color: white;
+    padding: 13px 25px;
+    border-radius: 8px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.upload-box input[type="file"] {
+    display: none;
+}
+
+#fileName {
+    color: #718096;
+    font-size: 13px;
+    margin: 18px 0;
+}
+
+.upload-note {
+    font-size: 11px !important;
+    margin-top: 20px;
+}
+
+/* FOOTER */
+
+footer {
+    background: #101d32;
+    text-align: center;
+    padding: 55px 20px;
+    color: white;
+}
+
+.footer-logo {
+    font-size: 25px;
+    font-weight: 800;
+    color: #ff7185;
+    margin-bottom: 15px;
+}
+
+footer p {
+    color: #bdc9d9;
+    font-size: 13px;
+    margin: 12px 0;
+}
+
+.disclaimer {
+    font-size: 11px;
+}
+
+.copyright {
+    margin-top: 30px;
+    color: #8292a8;
+}
+
+/* RESPONSIVE DESIGN */
+
+@media (max-width: 900px) {
+
+    .hero {
+        flex-direction: column;
+        text-align: center;
+    }
+
+    .hero-buttons,
+    .hero-stats {
+        justify-content: center;
+    }
+
+    .hero-visual {
+        margin: 30px auto;
+    }
+
+    .feature-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    .process-grid {
+        grid-template-columns: 1fr 1fr;
+    }
+
+    nav {
+        gap: 12px;
+    }
+}
+
+@media (max-width: 600px) {
+
+    .navbar {
+        height: auto;
+        padding: 20px;
+        flex-wrap: wrap;
+        gap: 18px;
+    }
+
+    nav {
+        width: 100%;
+        justify-content: center;
+        flex-wrap: wrap;
+    }
+
+    .nav-button {
+        display: none;
+    }
+
+    .hero {
+        padding: 65px 22px;
+    }
+
+    .hero h1 {
+        font-size: 39px;
+    }
+
+    .hero-stats {
+        gap: 25px;
+    }
+
+    .hero-visual {
+        transform: scale(0.85);
+    }
+
+    .feature-grid,
+    .process-grid {
+        grid-template-columns: 1fr;
+    }
+
+    .about,
+    .technology,
+    .analysis {
+        padding: 70px 22px;
+    }
+
+    .section-heading h2 {
+        font-size: 27px;
+    }
+}

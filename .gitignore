@@ -1,0 +1,14 @@
+
+.venv/
+.venv-1/
+.venv-2/
+__pycache__/
+.DS_Store
+*.pyc
+
+dataset/
+model/dataset/
+uploads/
+static/generated/
+*.zip
+original_ecg.png
