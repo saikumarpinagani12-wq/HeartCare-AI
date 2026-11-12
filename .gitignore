@@ -12,3 +12,4 @@ uploads/
 static/generated/
 *.zip
 original_ecg.png
+Genuine_*.csv

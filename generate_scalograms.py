@@ -1,5 +1,4 @@
 
-import os
 import ast
 import numpy as np
 import pandas as pd
@@ -37,6 +36,7 @@ ABNORMAL_PATH.mkdir(parents=True, exist_ok=True)
 print("Loading PTB-XL dataset...")
 
 metadata = pd.read_csv(DATASET_PATH / "ptbxl_database.csv")
+
 statements = pd.read_csv(
     DATASET_PATH / "scp_statements.csv",
     index_col=0
@@ -67,7 +67,7 @@ def get_label(code_string):
         if pd.notna(diagnostic) and diagnostic == 1:
             diagnostic_codes.append(code)
 
-    # Exclude ambiguous or unclassified recordings
+    # Keep only clearly normal recordings
     if "NORM" in diagnostic_codes:
 
         if len(diagnostic_codes) == 1:
@@ -75,6 +75,7 @@ def get_label(code_string):
 
         return None
 
+    # Other diagnostic recordings are abnormal
     if diagnostic_codes:
         return "Abnormal"
 
@@ -89,21 +90,35 @@ print("\nClass distribution:")
 print(metadata["label"].value_counts())
 
 # =====================================
-# 4. SELECT 10 RECORDINGS
+# 4. SELECT RECORDINGS
 # =====================================
 
-normal_samples = metadata[
-    metadata["label"] == "Normal"
-].sample(n=500, random_state=42)
+normal_data = metadata[metadata["label"] == "Normal"]
+abnormal_data = metadata[metadata["label"] == "Abnormal"]
 
-abnormal_samples = metadata[
-    metadata["label"] == "Abnormal"
-].sample(n=500, random_state=42)
+sample_count = min(
+    500,
+    len(normal_data),
+    len(abnormal_data)
+)
 
-samples = pd.concat([
-    normal_samples,
-    abnormal_samples
-])
+normal_samples = normal_data.sample(
+    n=sample_count,
+    random_state=42
+)
+
+abnormal_samples = abnormal_data.sample(
+    n=sample_count,
+    random_state=42
+)
+
+samples = pd.concat(
+    [normal_samples, abnormal_samples]
+).sample(frac=1, random_state=42)
+
+print("\nSelected recordings:")
+print("Normal:", len(normal_samples))
+print("Abnormal:", len(abnormal_samples))
 
 # =====================================
 # 5. GENERATE CWT SCALOGRAM
@@ -116,15 +131,15 @@ def generate_scalogram(row):
 
     record_path = DATASET_PATH / row["filename_lr"]
 
-    print(f"\nProcessing ECG ID: {ecg_id} ({label})")
+    print(f"Processing ECG ID: {ecg_id}")
 
-    # Load original ECG signal
+    # Load original ECG
     signal, fields = wfdb.rdsamp(str(record_path))
 
     sampling_rate = fields["fs"]
 
     # Select Lead I
-    ecg_signal = signal[:, 0]
+    ecg_signal = signal[:, 0].astype(np.float32)
 
     # Normalize signal
     ecg_signal = (
@@ -143,17 +158,23 @@ def generate_scalogram(row):
 
     scalogram = np.abs(coefficients)
 
-    # Save scalogram image
+    # Select output folder
     output_folder = (
-        NORMAL_PATH if label == "Normal"
+        NORMAL_PATH
+        if label == "Normal"
         else ABNORMAL_PATH
     )
 
     output_file = output_folder / f"ECG_{ecg_id}.png"
 
-    plt.figure(figsize=(5, 4))
+    # =================================
+    # IMAGE GENERATION
+    # Match Flask website settings
+    # =================================
 
-    plt.imshow(
+    fig, ax = plt.subplots(figsize=(5, 4))
+
+    image = ax.imshow(
         scalogram,
         extent=[
             0,
@@ -165,35 +186,51 @@ def generate_scalogram(row):
         cmap="jet"
     )
 
-    plt.title(f"{label} ECG - ID {ecg_id}")
-    plt.xlabel("Time (seconds)")
-    plt.ylabel("Wavelet Scale")
-    plt.colorbar(label="Magnitude")
-    plt.tight_layout()
+    # IMPORTANT: Do not include class labels
+    ax.set_title("ECG Scalogram")
 
-    plt.savefig(
+    ax.set_xlabel("Time (seconds)")
+    ax.set_ylabel("Wavelet Scale")
+
+    fig.colorbar(
+        image,
+        ax=ax,
+        label="Magnitude"
+    )
+
+    fig.tight_layout()
+
+    fig.savefig(
         output_file,
-        dpi=150,
+        dpi=100,
         bbox_inches="tight"
     )
 
-    plt.close()
+    plt.close(fig)
 
     print("Saved:", output_file)
 
 
 # =====================================
-# 6. PROCESS SELECTED RECORDINGS
+# 6. PROCESS RECORDINGS
 # =====================================
 
-print("\nGenerating 10 sample scalograms...")
+print("\nGenerating scalograms...")
+
+successful = 0
+failed = 0
 
 for _, row in samples.iterrows():
 
     try:
+
         generate_scalogram(row)
+        successful += 1
 
     except Exception as error:
+
+        failed += 1
+
         print(
             f"Error processing ECG {row['ecg_id']}: {error}"
         )
@@ -205,6 +242,9 @@ for _, row in samples.iterrows():
 print("\n================================")
 print("SCALOGRAM GENERATION COMPLETED")
 print("================================")
+
+print("Successful:", successful)
+print("Failed:", failed)
 
 print("Normal folder:", NORMAL_PATH)
 print("Abnormal folder:", ABNORMAL_PATH)
